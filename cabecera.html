@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
+ 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
     <!-- Enlaces a bootstrap-->
@@ -14,18 +15,18 @@
         body {
             margin-left: 10px;
         }
-
+ 
         #formularios {
             margin-top: 60px;
         }
     </style>
     <title>Clinica Vitalia</title>
 </head>
-
+ 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Tienda de informática</a>
+            <a class="navbar-brand" href="index.php">Clinica Vitalia</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -33,6 +34,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- MÉDICOS (Gabriel Vigo) -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -46,10 +48,10 @@
                             <li><a class="dropdown-item" href="baja_medico.php">Baja de medico</a></li>
                             <li><a class="dropdown-item" href="modificar_medico.php">Modificar un medico</a></li>
                             <li><a class="dropdown-item" href="listado_medicos.php">Listado de medicos</a></li>
-                            <li><a class="dropdown-item" href="listado_medico_por_especilidad.php">Listado de medicos por especialidad
-                                    </a></li>
+                            <li><a class="dropdown-item" href="listado_medico_por_especialidad.php">Listado de medicos por especialidad</a></li>
                         </ul>
                     </li>
+                    <!-- PACIENTES (Alejandro Gómez) -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -62,10 +64,46 @@
                             </li>
                             <li><a class="dropdown-item" href="baja_paciente.php">Baja Paciente</a></li>
                             <li><a class="dropdown-item" href="listado_paciente_nombre.php">Buscar paciente por nombre</a></li>
-                            <li><a class="dropdown-item" href="listado_por_aseguradora">Listado de pacientes por aseguradora</a></li>
+                            <li><a class="dropdown-item" href="listado_por_aseguradora.php">Listado de pacientes por aseguradora</a></li>
+                        </ul>
+                    </li>
+                    <!-- CITAS (Juan Antonio) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Citas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="alta_citas.php">Alta de cita</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="citas.php?accion=borrar">Baja de cita</a></li>
+                            <li><a class="dropdown-item" href="citas.php?accion=buscar">Buscar / modificar cita</a></li>
+                            <li><a class="dropdown-item" href="citas.php?accion=listar">Listado de citas</a></li>
+                            <li><a class="dropdown-item" href="citas.php?accion=filtrar">Listado de citas filtrado</a></li>
+                        </ul>
+                    </li>
+                    <!-- ASEGURADORAS (David Jiménez) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Aseguradoras
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="aseguradoras.php?accion=nuevo">Alta de aseguradora</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="aseguradoras.php?accion=borrar">Baja de aseguradora</a></li>
+                            <li><a class="dropdown-item" href="aseguradoras.php?accion=buscar">Buscar / modificar aseguradora</a></li>
+                            <li><a class="dropdown-item" href="aseguradoras.php?accion=listar">Listado de aseguradoras</a></li>
+                            <li><a class="dropdown-item" href="aseguradoras.php?accion=filtrar">Listado de aseguradoras filtrado</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+ 
+
