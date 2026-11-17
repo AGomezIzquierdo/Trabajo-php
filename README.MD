@@ -5,7 +5,7 @@ Aplicación web en PHP + PostgreSQL (Supabase) + Bootstrap 5 para la gestión de
 ## Enlaces
 
 - GitHub: https://github.com/AGomezIzquierdo/Trabajo-php
-- Alojamiento web (Vercel): _(pendiente)_
+- Alojamiento web (Vercel):https://trabajo-om6ld3w9k-proyecto-dam.vercel.app/
 
 ## Conexión a la base de datos
 
@@ -18,7 +18,7 @@ Base de datos PostgreSQL alojada en Supabase (Session pooler).
 | Base de datos | `postgres` |
 | Esquema | `clinica` |
 | Usuario | `postgres.gtyejmbwottcxmhdvllu` |
-| Contraseña | _(la del proyecto de Supabase, en la variable de entorno `DB_PASS`)_ |
+| Contraseña | J35lAHv2a7LfHoJN |
 
 Los datos se configuran en `config.php`. Las claves no están en el repositorio: se leen de las variables de entorno `DB_PASS` (contraseña de la base de datos) y `SUPABASE_KEY` (clave secreta de Supabase para subir imágenes a Storage). En local se pueden definir en un fichero `config.local.php` (no se sube a GitHub):
 
@@ -45,7 +45,7 @@ putenv("SUPABASE_KEY=clave_secreta");
 - `paciente` 1:N `cita`
 - `medico` 1:N `cita`
 
-Todas las tablas tienen clave primaria entera autoincrementada y columnas de tipo número, texto, booleano y fecha. Cada médico, paciente, cita y aseguradora tiene una imagen asociada que se muestra en los listados.
+
 
 ## Funcionalidades por entidad
 
@@ -64,25 +64,7 @@ Todas las tablas tienen clave primaria entera autoincrementada y columnas de tip
 3. Definir `DB_PASS` y `SUPABASE_KEY` (variables de entorno o `config.local.php`).
 4. Requiere PHP 8.1 o superior con las extensiones `pdo_pgsql` y `curl`.
 
-### Despliegue en Vercel
+### Desplegado en Vercel
 
-El proyecto usa el runtime comunitario `vercel-php` (ver `vercel.json`). Todas las peticiones pasan por `api/index.php`, que carga la página PHP correspondiente de la raíz. En Vercel hay que añadir las variables de entorno `DB_PASS` y `SUPABASE_KEY` en *Settings → Environment Variables*.
 
-Si no se define `SUPABASE_KEY`, las imágenes se guardan en la carpeta `imagenes/` del servidor (sirve en local, pero no en Vercel).
 
-## Estructura
-
-```
-index.php
-config.php
-vercel.json
-api/index.php
-funcionesBD.php
-cabecera.html
-alta_*.php, baja_*.php, modificar_*.php, listado_*.php, listar_*.php
-imagenes/
-sql/
-    backup.sql
-    diagrama_ER.png
-README.MD
-```
