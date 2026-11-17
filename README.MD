@@ -5,7 +5,7 @@ Aplicación web en PHP + PostgreSQL (Supabase) + Bootstrap 5 para la gestión de
 ## Enlaces
 
 - GitHub: https://github.com/AGomezIzquierdo/Trabajo-php
-- Alojamiento web: _(pendiente de añadir la URL del hosting)_
+- Alojamiento web (Vercel): _(pendiente)_
 
 ## Conexión a la base de datos
 
@@ -13,14 +13,20 @@ Base de datos PostgreSQL alojada en Supabase (Session pooler).
 
 | Parámetro | Valor |
 |-----------|-------|
-| Servidor | `aws-1-eu-west-1.pooler.supabase.com` |
+| Servidor | `aws-1-eu-central-1.pooler.supabase.com` |
 | Puerto | `5432` |
 | Base de datos | `postgres` |
 | Esquema | `clinica` |
-| Usuario | `postgres.gjztlpvftfwjotioweyu` |
-| Contraseña | _(la del proyecto de Supabase)_ |
+| Usuario | `postgres.gtyejmbwottcxmhdvllu` |
+| Contraseña | _(la del proyecto de Supabase, en la variable de entorno `DB_PASS`)_ |
 
-Los datos se configuran en `config.php`. La contraseña se lee de la variable de entorno `DB_PASS`; si no existe, se usa el valor escrito en `config.php`.
+Los datos se configuran en `config.php`. Las claves no están en el repositorio: se leen de las variables de entorno `DB_PASS` (contraseña de la base de datos) y `SUPABASE_KEY` (clave secreta de Supabase para subir imágenes a Storage). En local se pueden definir en un fichero `config.local.php` (no se sube a GitHub):
+
+```php
+<?php
+putenv("DB_PASS=contraseña");
+putenv("SUPABASE_KEY=clave_secreta");
+```
 
 ## Alumnos y entidad de la que es responsable
 
@@ -54,15 +60,23 @@ Todas las tablas tienen clave primaria entera autoincrementada y columnas de tip
 ## Instalación
 
 1. En Supabase, abrir **SQL Editor**, pegar el contenido de `sql/backup.sql` y ejecutarlo. Crea el esquema `clinica`, las tablas, las relaciones y 10 registros por tabla.
-2. Poner la contraseña de la base de datos en `config.php` o en la variable de entorno `DB_PASS`.
-3. Copiar el proyecto en el servidor web y dar permisos de escritura a la carpeta `imagenes/` para que se puedan subir imágenes.
-4. Requiere PHP 8.1 o superior con la extensión `pdo_pgsql` activada (en XAMPP: descomentar `extension=pdo_pgsql` en `php.ini` y reiniciar Apache).
+2. Crear en **Storage** un bucket público llamado `imagenes`.
+3. Definir `DB_PASS` y `SUPABASE_KEY` (variables de entorno o `config.local.php`).
+4. Requiere PHP 8.1 o superior con las extensiones `pdo_pgsql` y `curl`.
+
+### Despliegue en Vercel
+
+El proyecto usa el runtime comunitario `vercel-php` (ver `vercel.json`). Todas las peticiones pasan por `api/index.php`, que carga la página PHP correspondiente de la raíz. En Vercel hay que añadir las variables de entorno `DB_PASS` y `SUPABASE_KEY` en *Settings → Environment Variables*.
+
+Si no se define `SUPABASE_KEY`, las imágenes se guardan en la carpeta `imagenes/` del servidor (sirve en local, pero no en Vercel).
 
 ## Estructura
 
 ```
 index.php
 config.php
+vercel.json
+api/index.php
 funcionesBD.php
 cabecera.html
 alta_*.php, baja_*.php, modificar_*.php, listado_*.php, listar_*.php

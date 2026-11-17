@@ -106,27 +106,78 @@ function subirImagen($campo, $obligatoria = true)
     if ($info === false || !isset($tipos[$info["mime"]])) {
         return ["nombre" => null, "error" => "El fichero debe ser una imagen JPG, PNG, GIF o WEBP."];
     }
+    $nombre = "img_" . bin2hex(random_bytes(8)) . "." . $tipos[$info["mime"]];
+    if (usarStorage()) {
+        $respuesta = peticionStorage("POST", $nombre, file_get_contents($fichero["tmp_name"]), $info["mime"]);
+        if ($respuesta < 200 || $respuesta >= 300) {
+            return ["nombre" => null, "error" => "No se ha podido guardar la imagen en Supabase Storage (código $respuesta)."];
+        }
+        return ["nombre" => $nombre, "error" => ""];
+    }
     if (!is_dir(CARPETA_IMAGENES)) {
         mkdir(CARPETA_IMAGENES, 0775, true);
     }
-    $nombre = "img_" . bin2hex(random_bytes(8)) . "." . $tipos[$info["mime"]];
     if (!move_uploaded_file($fichero["tmp_name"], CARPETA_IMAGENES . $nombre)) {
         return ["nombre" => null, "error" => "No se ha podido guardar la imagen en el servidor."];
     }
     return ["nombre" => $nombre, "error" => ""];
 }
 
+function usarStorage()
+{
+    return SUPABASE_KEY !== "";
+}
+
+function peticionStorage($metodo, $nombre, $contenido = null, $tipo = "application/octet-stream")
+{
+    $cabeceras = ["apikey: " . SUPABASE_KEY, "Content-Type: $tipo", "x-upsert: true"];
+    if (str_starts_with(SUPABASE_KEY, "eyJ")) {
+        $cabeceras[] = "Authorization: Bearer " . SUPABASE_KEY;
+    }
+    $curl = curl_init(SUPABASE_URL . "/storage/v1/object/" . SUPABASE_BUCKET . "/" . rawurlencode($nombre));
+    curl_setopt_array($curl, [
+        CURLOPT_CUSTOMREQUEST => $metodo,
+        CURLOPT_HTTPHEADER => $cabeceras,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 20,
+    ]);
+    if ($contenido !== null) {
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $contenido);
+    }
+    curl_exec($curl);
+    $codigo = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+    return $codigo;
+}
+
+function imagenProtegida($nombre)
+{
+    return in_array($nombre, ["medico.png", "paciente.png", "cita.png", "aseguradora.png", "sin_imagen.png"]);
+}
+
 function borrarImagen($nombre)
 {
-    $protegidas = ["medico.png", "paciente.png", "cita.png", "aseguradora.png", "sin_imagen.png"];
-    if ($nombre && !in_array($nombre, $protegidas) && basename($nombre) === $nombre && is_file(CARPETA_IMAGENES . $nombre)) {
+    if (!$nombre || imagenProtegida($nombre) || basename($nombre) !== $nombre) {
+        return;
+    }
+    if (usarStorage()) {
+        peticionStorage("DELETE", $nombre);
+    } elseif (is_file(CARPETA_IMAGENES . $nombre)) {
         unlink(CARPETA_IMAGENES . $nombre);
     }
 }
 
 function imagenHtml($nombre, $ancho = 70)
 {
-    $ruta = ($nombre && is_file(CARPETA_IMAGENES . $nombre)) ? URL_IMAGENES . $nombre : URL_IMAGENES . "sin_imagen.png";
+    if (!$nombre) {
+        $ruta = URL_IMAGENES . "sin_imagen.png";
+    } elseif (imagenProtegida($nombre)) {
+        $ruta = URL_IMAGENES . $nombre;
+    } elseif (usarStorage()) {
+        $ruta = SUPABASE_URL . "/storage/v1/object/public/" . SUPABASE_BUCKET . "/" . rawurlencode($nombre);
+    } else {
+        $ruta = is_file(CARPETA_IMAGENES . $nombre) ? URL_IMAGENES . $nombre : URL_IMAGENES . "sin_imagen.png";
+    }
     return "<img src='" . e($ruta) . "' alt='imagen' class='img-thumbnail' style='width:{$ancho}px;height:{$ancho}px;object-fit:cover'>";
 }
 
