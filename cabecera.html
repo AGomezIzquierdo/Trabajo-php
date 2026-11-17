@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
- 
+
 <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <!-- Enlaces a bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -12,21 +11,18 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <style type="text/css">
-        body {
-            margin-left: 10px;
-        }
- 
         #formularios {
-            margin-top: 60px;
+            margin-top: 30px;
+            margin-bottom: 40px;
         }
     </style>
-    <title>Clinica Vitalia</title>
+    <title>Clínica Vitalia</title>
 </head>
- 
+
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">Clinica Vitalia</a>
+            <a class="navbar-brand" href="index.php"><i class="bi bi-hospital"></i> Clínica Vitalia</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -34,77 +30,83 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- MÉDICOS (Gabriel Vigo) -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Medicos
+                            <i class="bi bi-person-badge"></i> Médicos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="alta_medico.php">Alta de medico</a></li>
+                            <li><a class="dropdown-item" href="alta_medico.php">Alta de médico</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="baja_medico.php">Baja de medico</a></li>
-                            <li><a class="dropdown-item" href="modificar_medico.php">Modificar un medico</a></li>
-                            <li><a class="dropdown-item" href="listado_medicos.php">Listado de medicos</a></li>
-                            <li><a class="dropdown-item" href="listado_medico_por_especialidad.php">Listado de medicos por especialidad</a></li>
+                            <li><a class="dropdown-item" href="modificar_medico.php">Buscar / modificar médico</a></li>
+                            <li><a class="dropdown-item" href="baja_medico.php">Baja de médico</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="listado_medicos.php">Listado de médicos</a></li>
+                            <li><a class="dropdown-item" href="listado_medico_por_especialidad.php">Listado de médicos por especialidad</a></li>
                         </ul>
                     </li>
-                    <!-- PACIENTES (Alejandro Gómez) -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Paciente
+                            <i class="bi bi-people"></i> Pacientes
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="alta_paciente.php">Alta Paciente</a></li>
+                            <li><a class="dropdown-item" href="alta_paciente.php">Alta de paciente</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="modificar_paciente.php">Modificar Paciente</a></li>
-                            <li><a class="dropdown-item" href="baja_paciente.php">Baja Paciente</a></li>
-                            <li><a class="dropdown-item" href="listado_pacientes.php">Listar Pacientes</a></li>
+                            <li><a class="dropdown-item" href="modificar_paciente.php">Buscar / modificar paciente</a></li>
+                            <li><a class="dropdown-item" href="baja_paciente.php">Baja de paciente</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="listado_pacientes.php">Listado de pacientes</a></li>
                             <li><a class="dropdown-item" href="listado_paciente_por_aseguradora.php">Listado de pacientes por aseguradora</a></li>
                         </ul>
                     </li>
-                    <!-- CITAS (Juan Antonio) -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Citas
+                            <i class="bi bi-calendar-check"></i> Citas
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="alta_citas.php">Alta de cita</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="citas.php?accion=borrar">Baja de cita</a></li>
-                            <li><a class="dropdown-item" href="citas.php?accion=buscar">Buscar / modificar cita</a></li>
-                            <li><a class="dropdown-item" href="citas.php?accion=listar">Listado de citas</a></li>
-                            <li><a class="dropdown-item" href="citas.php?accion=filtrar">Listado de citas filtrado</a></li>
-                        </ul>
-                    </li>
-                    <!-- ASEGURADORAS (David Jiménez) -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Aseguradoras
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="aseguradoras.php?accion=nuevo">Alta de aseguradora</a></li>
+                            <li><a class="dropdown-item" href="modificar_cita.php">Buscar / modificar cita</a></li>
+                            <li><a class="dropdown-item" href="baja_citas.php">Baja de cita</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="aseguradoras.php?accion=borrar">Baja de aseguradora</a></li>
-                            <li><a class="dropdown-item" href="aseguradoras.php?accion=buscar">Buscar / modificar aseguradora</a></li>
-                            <li><a class="dropdown-item" href="aseguradoras.php?accion=listar">Listado de aseguradoras</a></li>
-                            <li><a class="dropdown-item" href="aseguradoras.php?accion=filtrar">Listado de aseguradoras filtrado</a></li>
+                            <li><a class="dropdown-item" href="listar_citas.php">Listado de citas</a></li>
+                            <li><a class="dropdown-item" href="listar_citas_por_pacientes.php">Listado de citas por paciente</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-shield-plus"></i> Aseguradoras
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="alta_aseguradora.php">Alta de aseguradora</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="modificar_aseguradora.php">Buscar / modificar aseguradora</a></li>
+                            <li><a class="dropdown-item" href="baja_aseguradora.php">Baja de aseguradora</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="listar_aseguradora.php">Listado de aseguradoras</a></li>
+                            <li><a class="dropdown-item" href="listar_aseguradora_por_tipo_aseguradora.php">Listado de aseguradoras por tipo</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
- 
-
